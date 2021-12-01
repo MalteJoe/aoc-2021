@@ -15,6 +15,9 @@ fun part2(input: Input): Output {
     TODO()
 }
 
+/**
+ * [TODO](https://adventofcode.com/2021/day/2)
+ */
 fun main() {
     val input = readInput("day02", ::mapInput)
     println(part1(input))
