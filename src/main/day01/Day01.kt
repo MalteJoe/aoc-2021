@@ -8,7 +8,13 @@ typealias Output = Int
 fun mapInput(lines: Sequence<String>): Input = lines.map(String::toInt).toList()
 
 fun part1(input: Input): Output {
-    return input.size
+    var increases = 0
+    input.windowed(2).forEach { (a, b) ->
+        if (b > a) {
+            increases++
+        }
+    }
+    return increases
 }
 
 fun part2(input: Input): Output {
