@@ -18,7 +18,8 @@ internal class Day01Test {
 
     @Test
     fun parseInput() {
-        assertEquals(listOf(199,
+        assertEquals(listOf(
+            199,
             200,
             208,
             210,
@@ -32,11 +33,13 @@ internal class Day01Test {
 
     @Test
     fun `part1 example`() {
-        val input = mapInput(sampleInput.lineSequence());
+        val input = mapInput(sampleInput.lineSequence())
         assertEquals(7, part1(input))
     }
 
     @Test
     fun `part2 example`() {
+        val input = mapInput(sampleInput.lineSequence())
+        assertEquals(5, part2(input))
     }
 }

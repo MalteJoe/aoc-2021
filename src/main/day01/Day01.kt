@@ -18,7 +18,16 @@ fun part1(input: Input): Output {
 }
 
 fun part2(input: Input): Output {
-    TODO()
+    var sumOfPreviousWindow: Int? = null
+    var increases = 0
+    for ((a, b, c) in input.windowed(3)) {
+        val sumOfWindow = a + b + c
+        if (sumOfPreviousWindow != null && sumOfWindow > sumOfPreviousWindow) {
+            increases++
+        }
+        sumOfPreviousWindow = sumOfWindow
+    }
+    return increases
 }
 
 fun main() {
