@@ -11,29 +11,15 @@ fun mapInput(lines: Sequence<String>): Input = lines.map(String::toInt).toList()
  * **How many measurements are larger than the previous measurement?**
  */
 fun part1(input: Input): Output {
-    var increases = 0
-    input.windowed(2).forEach { (a, b) ->
-        if (b > a) {
-            increases++
-        }
-    }
-    return increases
+    return input.windowed(2).count { (a, b) -> b > a }
 }
 
 /**
  * Consider sums of a three-measurement sliding window. **How many sums are larger than the previous sum?**
  */
 fun part2(input: Input): Output {
-    var sumOfPreviousWindow: Int? = null
-    var increases = 0
-    for ((a, b, c) in input.windowed(3)) {
-        val sumOfWindow = a + b + c
-        if (sumOfPreviousWindow != null && sumOfWindow > sumOfPreviousWindow) {
-            increases++
-        }
-        sumOfPreviousWindow = sumOfWindow
-    }
-    return increases
+    // two measurements overlap, so they can be omitted
+    return input.windowed(4).count { (a, _, _, b) -> b > a }
 }
 
 /**
