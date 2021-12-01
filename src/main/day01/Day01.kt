@@ -2,10 +2,10 @@ package day01
 
 import readInput
 
-typealias Input = List<String>
+typealias Input = List<Int>
 typealias Output = Int
 
-fun mapInput(lines: Sequence<String>): Input = lines.toList()
+fun mapInput(lines: Sequence<String>): Input = lines.map(String::toInt).toList()
 
 fun part1(input: Input): Output {
     return input.size
