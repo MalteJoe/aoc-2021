@@ -35,6 +35,6 @@ forward 2"""
     @Test
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(900, part2(input))
     }
 }
