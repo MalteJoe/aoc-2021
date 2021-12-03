@@ -2,7 +2,7 @@ package day03
 
 import readInput
 
-typealias Input = List<Int>
+typealias Input = List<String>
 typealias Output = Int
 
 /**
@@ -15,7 +15,7 @@ fun main() {
 }
 
 
-fun mapInput(lines: Sequence<String>): Input = lines.map { it.toInt(2) }.toList()
+fun mapInput(lines: Sequence<String>): Input = lines.toList()
 
 /**
  * Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate,
@@ -23,7 +23,23 @@ fun mapInput(lines: Sequence<String>): Input = lines.map { it.toInt(2) }.toList(
  * (Be sure to represent your answer in decimal, not binary.)
  */
 fun part1(input: Input): Output {
-    TODO()
+    val countOnes = Array(input.first().length) { 0 }
+    for (it in input) {
+        it.forEachIndexed { index, c ->
+            if (c == '1') countOnes[index]++
+        }
+    }
+    var gamma = 0
+    var epsilon = 0
+    for ((index, count) in countOnes.withIndex()) {
+        val bit = 1 shl input.first().length - 1 - index
+        if (count > input.size / 2) {
+            gamma = gamma or bit
+        } else {
+            epsilon = epsilon or bit
+        }
+    }
+    return gamma * epsilon
 }
 
 /**
