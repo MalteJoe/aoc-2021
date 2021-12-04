@@ -10,6 +10,7 @@ import kotlin.time.measureTimedValue
 /**
  * [Giant Squid](https://adventofcode.com/2021/day/4)
  */
+@Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
 @OptIn(ExperimentalTime::class)
 fun main() {
     val (input, parseTime) = measureTimedValue { readInput("day04", ::mapInput) }
