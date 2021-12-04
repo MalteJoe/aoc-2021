@@ -1,5 +1,6 @@
 package day04
 
+import readInput
 import kotlin.test.*
 
 internal class Day04Test {
@@ -97,8 +98,20 @@ internal class Day04Test {
     }
 
     @Test
+    fun part1() {
+        val input = readInput("day04", ::mapInput)
+        assertEquals(51034, part1(input))
+    }
+
+    @Test
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(1924, part2(input))
+    }
+
+    @Test
+    fun part2() {
+        val input = readInput("day04", ::mapInput)
+        assertEquals(5434, part2(input))
     }
 }

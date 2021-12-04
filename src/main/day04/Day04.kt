@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
+
 package day04
 
 import readInput
@@ -23,14 +25,16 @@ typealias Output = Int
 
 data class BingoGame(val drawnNumbers: List<Int>, val bingoBoards: List<BingoBoard>)
 
-data class BingoBoard(val board: List<List<Int>>) {
+data class BingoBoard(val grid: List<List<Int>>) {
 
-    fun checkForNewRecord(drawnNumbers: List<Int>): BingoRecord? {
-        val horizontal = board.map { it.toSet() }.toSet()
-        val vertical = List(board.size) { i -> board.map { it[i] }.toSet() }
-        val winningSets = horizontal + vertical
+    private val winningSets: Set<Set<Int>> by lazy {
+        val horizontal = grid.map { it.toSet() }.toSet()
+        val vertical = List(grid.size) { i -> grid.map { it[i] }.toSet() }
+        horizontal + vertical
+    }
 
-        var round = min(board.size, board.first().size)
+    fun calculateWinningRound(drawnNumbers: List<Int>): BingoRecord? {
+        var round = min(grid.size, grid.first().size)
         val drawnSoFar = drawnNumbers.subList(0, round).toMutableSet()
         while (!winningSets.any(drawnSoFar::containsAll) && round < drawnNumbers.size) {
             drawnSoFar.add(drawnNumbers[round++])
@@ -39,8 +43,11 @@ data class BingoBoard(val board: List<List<Int>>) {
     }
 }
 
-data class BingoRecord(val board: BingoBoard, val winningRound: Int)
-
+data class BingoRecord(val board: BingoBoard, val winningRound: Int) {
+    fun score(drawnNumbers: List<Int>): Int = board.grid.flatten()
+        .filterNot { drawnNumbers.subList(0, winningRound).contains(it) }
+        .sum() * drawnNumbers[winningRound - 1]
+}
 
 fun mapInput(lines: Sequence<String>): Input {
     val allLines = lines.toList()
@@ -61,18 +68,14 @@ fun <T> parseMatrix(list: List<String>, transform: (String) -> T, delimiter: Reg
 fun part1(input: Input): Output {
     var best: BingoRecord? = null
     for (it in input.bingoBoards) {
-        val score = it.checkForNewRecord(input.drawnNumbers.subList(0, best?.winningRound ?: input.drawnNumbers.size))
-        if (score != null) best = score
+        val drawnUpToCurrentBest = input.drawnNumbers.subList(0, best?.winningRound ?: input.drawnNumbers.size)
+        best = it.calculateWinningRound(drawnUpToCurrentBest) ?: best
     }
-    if (best == null) error("No solution")
-    val unmarkedNumbers = best.board.board.flatten().filter {
-        !input.drawnNumbers.subList(0, best.winningRound).contains(it)
-    }
-    return unmarkedNumbers.sum() * input.drawnNumbers[best.winningRound - 1]
+    return best?.score(input.drawnNumbers) ?: error("No solution")
 }
 
 fun part2(input: Input): Output {
-    TODO()
+    return (input.bingoBoards.mapNotNull { it.calculateWinningRound(input.drawnNumbers) }
+        .maxByOrNull { it.winningRound } ?: error("No solution"))
+        .score(input.drawnNumbers)
 }
-
-
