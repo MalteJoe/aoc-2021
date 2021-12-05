@@ -1,27 +1,16 @@
 package day05
 
+import advent
 import allCombinations
-import readInput
 import kotlin.math.*
-import kotlin.ranges.IntProgression.Companion.fromClosedRange
-import kotlin.time.*
-
-typealias Input = List<Line>
-typealias Output = Int
 
 /**
  * [Hydrothermal Venture](https://adventofcode.com/2021/day/5)
  */
-@Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
-@OptIn(ExperimentalTime::class)
-fun main() {
-    val (input, parseTime) = measureTimedValue { readInput("day05", ::mapInput) }
-    println("Input read in $parseTime")
-    val (part1, part1Duration) = measureTimedValue { part1(input) }
-    println("Part 1: $part1 (took $part1Duration)")
-    val (part2, part2Duration) = measureTimedValue { part2(input) }
-    println("Part 2: $part2 (took $part2Duration)")
-}
+fun main() = advent("day05", ::mapInput, ::part1, ::part2)
+
+typealias Input = List<Line>
+typealias Output = Int
 
 val parser = Regex("""(\d+),(\d+) -> (\d+),(\d+)""")
 fun mapInput(lines: Sequence<String>): Input = lines.map {
@@ -30,7 +19,7 @@ fun mapInput(lines: Sequence<String>): Input = lines.map {
 }.toList()
 
 data class Line(val start: Coordinate, val end: Coordinate) {
-    private val coordinates: Set<Coordinate> by lazy { start.rangeTo(end).toSet() }
+    private val coordinates: Set<Coordinate> by lazy { (start..end).toSet() }
     fun overlapsWith(other: Line): Set<Coordinate> = this.coordinates.intersect(other.coordinates)
 }
 
@@ -47,7 +36,8 @@ data class Coordinate(val x: Int, val y: Int) {
         }
     }
 
-    private fun orderIndependentRange(start: Int, end: Int) = fromClosedRange(start, end, (end - start).sign)
+    private fun orderIndependentRange(start: Int, end: Int) =
+        IntProgression.fromClosedRange(start, end, (end - start).sign)
 
 }
 

@@ -1,6 +1,6 @@
 package day03
 
-import readInput
+import advent
 
 typealias Input = List<String>
 typealias Output = Int
@@ -8,11 +8,7 @@ typealias Output = Int
 /**
  * [Binary Diagnostic](https://adventofcode.com/2021/day/3)
  */
-fun main() {
-    val input = readInput("day03", ::mapInput)
-    println(part1(input))
-    println(part2(input))
-}
+fun main() = advent("day03", ::mapInput, ::part1, ::part2)
 
 
 fun mapInput(lines: Sequence<String>): Input = lines.toList()

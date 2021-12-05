@@ -1,22 +1,12 @@
 package day04
 
-import readInput
+import advent
 import kotlin.math.*
-import kotlin.time.*
 
 /**
  * [Giant Squid](https://adventofcode.com/2021/day/4)
  */
-@Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
-@OptIn(ExperimentalTime::class)
-fun main() {
-    val (input, parseTime) = measureTimedValue { readInput("day04", ::mapInput) }
-    println("Input read in $parseTime")
-    val (part1, part1Duration) = measureTimedValue { part1(input) }
-    println("Part 1: $part1 (took $part1Duration)")
-    val (part2, part2Duration) = measureTimedValue { part2(input) }
-    println("Part 2: $part2 (took $part2Duration)")
-}
+fun main() = advent("day04", ::mapInput, ::part1, ::part2)
 
 typealias Input = BingoGame
 typealias Output = Int

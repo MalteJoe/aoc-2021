@@ -26,4 +26,10 @@ internal class Day05Test {
         val input = mapInput(sampleInput.lineSequence())
         assertEquals(12, part2(input))
     }
+
+    @Test
+    fun `Coordinate rangeTo`() {
+        val diagonal = Coordinate(9, 7)..Coordinate(7, 9)
+        assertEquals(listOf(Coordinate(9, 7), Coordinate(8, 8), Coordinate(7, 9)), diagonal.toList())
+    }
 }

@@ -1,6 +1,6 @@
 package day02
 
-import readInput
+import advent
 
 typealias Input = List<Command>
 typealias Output = Int
@@ -10,11 +10,7 @@ data class Command(val instruction: String, val units: Int)
 /**
  * [Dive!](https://adventofcode.com/2021/day/2)
  */
-fun main() {
-    val input = readInput("day02", ::mapInput)
-    println(part1(input))
-    println(part2(input))
-}
+fun main() = advent("day02", ::mapInput, ::part1, ::part2)
 
 
 fun mapInput(lines: Sequence<String>): Input = lines.map { line ->
