@@ -26,14 +26,12 @@ data class Line(val start: Coordinate, val end: Coordinate) {
 data class Coordinate(val x: Int, val y: Int) {
     constructor(x: String, y: String) : this(x.toInt(), y.toInt())
 
-    operator fun rangeTo(second: Coordinate): List<Coordinate> {
-        return when {
-            this.x == second.x -> orderIndependentRange(this.y, second.y).map { this.copy(y = it) }
-            this.y == second.y -> orderIndependentRange(this.x, second.x).map { this.copy(x = it) }
-            else -> orderIndependentRange(this.x, second.x)
-                .zip(orderIndependentRange(this.y, second.y))
-                .map { (x, y) -> Coordinate(x, y) }
-        }
+    operator fun rangeTo(second: Coordinate): List<Coordinate> = when {
+        this.x == second.x -> orderIndependentRange(this.y, second.y).map { this.copy(y = it) }
+        this.y == second.y -> orderIndependentRange(this.x, second.x).map { this.copy(x = it) }
+        else -> orderIndependentRange(this.x, second.x)
+            .zip(orderIndependentRange(this.y, second.y))
+            .map { (x, y) -> Coordinate(x, y) }
     }
 
     private fun orderIndependentRange(start: Int, end: Int) =
@@ -45,10 +43,5 @@ fun part1(input: Input): Output = findOverlaps(input.filter { (a, b) -> a.x == b
 
 fun part2(input: Input): Output = findOverlaps(input).size
 
-fun findOverlaps(input: Input): Set<Coordinate> {
-    val coordinatesWithOverlaps: MutableSet<Coordinate> = mutableSetOf()
-    for ((a, b) in input.allCombinations()) {
-        coordinatesWithOverlaps += a.overlapsWith(b)
-    }
-    return coordinatesWithOverlaps
-}
+fun findOverlaps(input: Input): Set<Coordinate> = input.allCombinations()
+    .fold(mutableSetOf()) { acc, pair -> acc += pair.first.overlapsWith(pair.second); acc }
