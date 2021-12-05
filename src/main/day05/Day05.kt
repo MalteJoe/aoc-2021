@@ -1,15 +1,16 @@
 package day05
 
-import day04.mapInput
+import allCombinations
 import readInput
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
+import kotlin.math.*
+import kotlin.ranges.IntProgression.Companion.fromClosedRange
+import kotlin.time.*
 
-typealias Input = Any // TODO
+typealias Input = List<Line>
 typealias Output = Int
 
 /**
- * [TODO](https://adventofcode.com/2021/day/5)
+ * [Hydrothermal Venture](https://adventofcode.com/2021/day/5)
  */
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
 @OptIn(ExperimentalTime::class)
@@ -22,19 +23,38 @@ fun main() {
     println("Part 2: $part2 (took $part2Duration)")
 }
 
+val parser = Regex("""(\d+),(\d+) -> (\d+),(\d+)""")
+fun mapInput(lines: Sequence<String>): Input = lines.map {
+    val (x1, y1, x2, y2) = parser.find(it)?.destructured ?: error("Error parsing $it")
+    Pair(Coordinate(x1, y1), Coordinate(x2, y2))
+}.toList()
 
-fun mapInput(lines: Sequence<String>): Input = TODO()
+typealias Line = Pair<Coordinate, Coordinate>
 
-/**
- * TODO
- */
-fun part1(input: Input): Output {
-    TODO()
+data class Coordinate(val x: Int, val y: Int) {
+    constructor(x: String, y: String) : this(x.toInt(), y.toInt())
+
+    operator fun rangeTo(second: Coordinate): List<Coordinate> {
+        return when (this.x) {
+            second.x -> fromClosedRange(this.y, second.y, (second.y - this.y).sign).map { this.copy(y = it) }
+            else -> fromClosedRange(this.x, second.x, (second.x - this.x).sign).map { this.copy(x = it) }
+        }
+    }
+
 }
 
-/**
- * TODO
- */
+fun part1(input: Input): Output {
+    val coordinatesWithOverlaps: MutableSet<Coordinate> = mutableSetOf()
+    for ((a, b) in input.filter { (a, b) -> a.x == b.x || a.y == b.y }.allCombinations()) {
+        coordinatesWithOverlaps += a.overlapsWith(b)
+    }
+    return coordinatesWithOverlaps.size
+}
+
+fun Line.overlapsWith(other: Line): Set<Coordinate> = (this.first..this.second).filter { it in other }.toSet()
+
+operator fun Line.contains(other: Coordinate): Boolean = other in (this.first..this.second)
+
 fun part2(input: Input): Output {
     TODO()
 }

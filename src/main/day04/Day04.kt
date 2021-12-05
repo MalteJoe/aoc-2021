@@ -1,11 +1,8 @@
-@file:Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
-
 package day04
 
 import readInput
-import kotlin.math.min
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
+import kotlin.math.*
+import kotlin.time.*
 
 /**
  * [Giant Squid](https://adventofcode.com/2021/day/4)
