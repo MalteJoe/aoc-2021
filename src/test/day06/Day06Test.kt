@@ -4,18 +4,18 @@ import kotlin.test.*
 
 internal class Day06Test {
 
-    private val sampleInput: String = TODO()
-
+    private val sampleInput: String = "3,4,3,1,2"
 
     @Test
-    fun parseInput() {
-        assertEquals(TODO(), mapInput(sampleInput.lineSequence()))
+    fun `part1 example after 18 days`() {
+        val input = mapInput(sampleInput.lineSequence())
+        assertEquals(26, part1(input, days = 18))
     }
 
     @Test
     fun `part1 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part1(input))
+        assertEquals(5934, part1(input))
     }
 
     @Test
