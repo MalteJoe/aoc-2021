@@ -20,5 +20,7 @@ fun part1(input: Input): Output {
 }
 
 fun part2(input: Input): Output {
-    TODO()
+    return List(input.maxOf { it } - input.minOf { it }) { i ->
+        input.sumOf { (1..(it - i).absoluteValue).sum() }
+    }.minOf { it }
 }

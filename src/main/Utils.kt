@@ -30,11 +30,17 @@ fun <T> readInput(name: String, block: (Sequence<String>) -> T) =
 fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>> =
     sequence { forEachIndexed { i, a -> subList((if (withSelf) 0 else 1) + i, size).forEach { yield(Pair(a, it)) } } }
 
-
 /**
  * Calculate the median (rounding down)
  */
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
+
+/**
+ * Range with may go negative steps
+ */
+fun orderIndependentRange(start: Int, end: Int) =
+    if (start <= end) start..end
+    else IntProgression.fromClosedRange(start, end, -1)
 
 
 fun <T> Pair<T, T>.swap(): Pair<T, T> = Pair(this.second, this.first)

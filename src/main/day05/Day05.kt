@@ -2,7 +2,7 @@ package day05
 
 import advent
 import allCombinations
-import kotlin.math.*
+import orderIndependentRange
 
 /**
  * [Hydrothermal Venture](https://adventofcode.com/2021/day/5)
@@ -33,9 +33,6 @@ data class Coordinate(val x: Int, val y: Int) {
             .zip(orderIndependentRange(this.y, second.y))
             .map { (x, y) -> Coordinate(x, y) }
     }
-
-    private fun orderIndependentRange(start: Int, end: Int) =
-        IntProgression.fromClosedRange(start, end, (end - start).sign)
 
 }
 
