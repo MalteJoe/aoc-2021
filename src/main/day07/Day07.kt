@@ -20,7 +20,7 @@ fun part1(input: Input): Output {
 }
 
 fun part2(input: Input): Output {
-    return List(input.maxOf { it } - input.minOf { it }) { i ->
+    return (input.minOf { it }..input.maxOf { it }).map { i ->
         input.sumOf {
             val steps = (it - i).absoluteValue
             steps * (steps + 1) / 2
