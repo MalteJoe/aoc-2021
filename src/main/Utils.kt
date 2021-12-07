@@ -36,6 +36,25 @@ fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>>
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
 
 /**
+ * Returns minimum and maximum of the Iterable in a single pass
+ */
+inline fun <T, R : Comparable<R>> Iterable<T>.minMaxOf(selector: (T) -> R): Pair<R, R> {
+    val iterator = iterator()
+    if (!iterator.hasNext()) throw NoSuchElementException()
+    var minValue = selector(iterator.next())
+    var maxValue = minValue
+    while (iterator.hasNext()) {
+        val v = selector(iterator.next())
+        if (minValue > v) {
+            minValue = v
+        } else if (maxValue < v) {
+            maxValue = v
+        }
+    }
+    return Pair(minValue, maxValue)
+}
+
+/**
  * Range with may go negative steps
  */
 fun orderIndependentRange(start: Int, end: Int) =

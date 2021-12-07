@@ -2,6 +2,7 @@ package day07
 
 import advent
 import median
+import minMaxOf
 import kotlin.math.*
 
 /**
@@ -20,7 +21,8 @@ fun part1(input: Input): Output {
 }
 
 fun part2(input: Input): Output {
-    return (input.minOf { it }..input.maxOf { it }).map { i ->
+    val (from, to) = input.minMaxOf { it }
+    return (from..to).map { i ->
         input.sumOf {
             val steps = abs(i - it)
             steps * (steps + 1) / 2
