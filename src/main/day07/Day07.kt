@@ -16,13 +16,13 @@ fun mapInput(lines: Sequence<String>): Input = lines.first().split(',').map(Stri
 
 fun part1(input: Input): Output {
     val median = input.median()
-    return input.sumOf { (it - median).absoluteValue }
+    return input.sumOf { abs(median - it) }
 }
 
 fun part2(input: Input): Output {
     return (input.minOf { it }..input.maxOf { it }).map { i ->
         input.sumOf {
-            val steps = (it - i).absoluteValue
+            val steps = abs(i - it)
             steps * (steps + 1) / 2
         }
     }.minOf { it }
