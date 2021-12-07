@@ -21,6 +21,9 @@ fun part1(input: Input): Output {
 
 fun part2(input: Input): Output {
     return List(input.maxOf { it } - input.minOf { it }) { i ->
-        input.sumOf { (1..(it - i).absoluteValue).sum() }
+        input.sumOf {
+            val steps = (it - i).absoluteValue
+            steps * (steps + 1) / 2
+        }
     }.minOf { it }
 }
