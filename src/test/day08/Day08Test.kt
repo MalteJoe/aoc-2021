@@ -40,16 +40,15 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(61229, part2(input))
     }
 
     @Test
     @Ignore
     fun part2() {
         val input = readInput("day08", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(1046281, part2(input))
     }
 }
