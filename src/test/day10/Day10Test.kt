@@ -1,9 +1,9 @@
-package day09
+package day10
 
 import readInput
 import kotlin.test.*
 
-internal class Day09Test {
+internal class Day10Test {
 
     private val sampleInput: String = TODO()
 
@@ -21,7 +21,7 @@ internal class Day09Test {
 
     @Test
     fun part1() {
-        val input = readInput("day09", ::mapInput)
+        val input = readInput("day10", ::mapInput)
         assertEquals(TODO(), part1(input))
     }
 
@@ -35,7 +35,7 @@ internal class Day09Test {
     @Test
     @Ignore
     fun part2() {
-        val input = readInput("day09", ::mapInput)
+        val input = readInput("day10", ::mapInput)
         assertEquals(TODO(), part2(input))
     }
 }
