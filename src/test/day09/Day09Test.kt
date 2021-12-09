@@ -5,37 +5,33 @@ import kotlin.test.*
 
 internal class Day09Test {
 
-    private val sampleInput: String = TODO()
-
-
-    @Test
-    fun parseInput() {
-        assertEquals(TODO(), mapInput(sampleInput.lineSequence()))
-    }
+    private val sampleInput: String = """2199943210
+3987894921
+9856789892
+8767896789
+9899965678"""
 
     @Test
     fun `part1 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part1(input))
+        assertEquals(15, part1(input))
     }
 
     @Test
     fun part1() {
         val input = readInput("day09", ::mapInput)
-        assertEquals(TODO(), part1(input))
+        assertEquals(494, part1(input))
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(1134, part2(input))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day09", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(1048128, part2(input))
     }
 }
