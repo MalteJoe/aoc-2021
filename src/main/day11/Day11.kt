@@ -19,5 +19,3 @@ fun part1(input: Input): Output {
 fun part2(input: Input): Output {
     TODO()
 }
-
-
