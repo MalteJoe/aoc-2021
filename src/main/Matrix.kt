@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.math.abs
 
 class Matrix<T> {
     private val values: MutableList<MutableList<T>>
@@ -42,7 +43,7 @@ class Matrix<T> {
     fun neighbours(c: Coordinate, diagonal: Boolean = true) = sequence {
         for (dRow in -1..1) {
             for (dCol in -1..1) {
-                if ((dRow != 0 || dCol != 0) && (diagonal || kotlin.math.abs(dRow) != kotlin.math.abs(dCol))) {
+                if ((dRow != 0 || dCol != 0) && (diagonal || abs(dRow) != abs(dCol))) {
                     val coord = Coordinate(c.row + dRow, c.col + dCol)
                     if (coord in this@Matrix) yield(coord)
                 }
