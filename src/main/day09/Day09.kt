@@ -1,7 +1,7 @@
 package day09
 
 import advent
-import kotlin.streams.*
+import charStream
 
 /**
  * [Smoke Basin](https://adventofcode.com/2021/day/9)
@@ -11,7 +11,7 @@ fun main() = advent("day09", ::mapInput, ::part1, ::part2)
 typealias Input = List<List<Int>>
 typealias Output = Int
 
-fun mapInput(lines: Sequence<String>): Input = lines.map { it.chars().map { it - '0'.code }.toList() }.toList()
+fun mapInput(lines: Sequence<String>): Input = lines.map { it.charStream(Char::digitToInt) }.toList()
 
 fun part1(input: Input): Output = minima2d(input).sumOf { (_, _, v) -> v + 1 }
 

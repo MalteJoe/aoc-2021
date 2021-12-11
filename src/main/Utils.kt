@@ -1,11 +1,11 @@
-import java.math.*
-import java.security.*
-import kotlin.io.path.*
-import kotlin.time.*
+import java.math.BigInteger
+import java.security.MessageDigest
+import kotlin.io.path.Path
+import kotlin.io.path.useLines
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
 
-/**
- * Read the input and print results with timings of the solutions
- */
+/** Read the input and print results with timings of the solutions */
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
 @OptIn(ExperimentalTime::class)
 fun <I, O> advent(dir: String, parse: (Sequence<String>) -> I, part1: (I) -> O, part2: (I) -> O) {
@@ -17,9 +17,7 @@ fun <I, O> advent(dir: String, parse: (Sequence<String>) -> I, part1: (I) -> O, 
     println("Part 2: $solut1on (took $durat1on)")
 }
 
-/**
- * Reads lines from the given input txt file and transforms the input
- */
+/** Reads lines from the given input txt file and transforms the input */
 fun <T> readInput(name: String, block: (Sequence<String>) -> T) =
     Path("src/main/$name", "input").useLines(block = block)
 
@@ -30,41 +28,28 @@ fun <T> readInput(name: String, block: (Sequence<String>) -> T) =
 fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>> =
     sequence { forEachIndexed { i, a -> subList((if (withSelf) 0 else 1) + i, size).forEach { yield(Pair(a, it)) } } }
 
-/**
- * Calculate the median (rounding down)
- */
+/** Calculate the median (rounding down) */
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
 
-/**
- * Returns minimum and maximum of the Iterable in a single pass
- */
+/** Convert a String to a List of Chars */
+fun String.charStream(): List<Char> = charStream { it }
+
+/** Convert a String to a List of Chars and transforms them */
+inline fun <T> String.charStream(crossinline mapper: (Char) -> T): List<T> =
+    chars().mapToObj { mapper(it.toChar()) }.toList()
+
+/** Returns minimum and maximum of the Iterable in a single pass */
 inline fun <T, R : Comparable<R>> Iterable<T>.minMaxOf(selector: (T) -> R): Pair<R, R> {
-    val iterator = iterator()
-    if (!iterator.hasNext()) throw NoSuchElementException()
-    var minValue = selector(iterator.next())
-    var maxValue = minValue
-    while (iterator.hasNext()) {
-        val v = selector(iterator.next())
-        if (minValue > v) {
-            minValue = v
-        } else if (maxValue < v) {
-            maxValue = v
-        }
-    }
-    return Pair(minValue, maxValue)
+    return Pair(minOf(selector), maxOf(selector))
 }
 
-/**
- * Range with may go negative steps
- */
+/** Range with may go negative steps */
 fun orderIndependentRange(start: Int, end: Int) =
     if (start <= end) start..end
     else IntProgression.fromClosedRange(start, end, -1)
 
+/** Swap a pairs first and second value */
+fun <T, U> Pair<U, T>.swap(): Pair<T, U> = Pair(this.second, this.first)
 
-fun <T> Pair<T, T>.swap(): Pair<T, T> = Pair(this.second, this.first)
-
-/**
- * Converts string to md5 hash.
- */
+/** Converts string to md5 hash. */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)

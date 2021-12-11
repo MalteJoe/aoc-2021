@@ -3,7 +3,7 @@ package day07
 import advent
 import median
 import minMaxOf
-import kotlin.math.*
+import kotlin.math.abs
 
 /**
  * [The Treachery of Whales](https://adventofcode.com/2021/day/7)
