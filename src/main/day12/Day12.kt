@@ -25,9 +25,7 @@ fun part1(input: Input): Output = numberOfPaths(createCaveMap(input), listOf("st
     cave.isLarge() || cave !in path
 }
 
-fun createCaveMap(input: Input) = input.zip(input.map(Connection::swap))
-    .flatMap { (forward, reverse) -> listOf(forward, reverse) }
-    .groupBy(Connection::first, Connection::second)
+fun createCaveMap(input: Input) = (input + (input.map(Connection::swap))).groupBy(Connection::first, Connection::second)
 
 fun numberOfPaths(map: CaveMap, explored: Path, canVisit: (Path, Cave) -> Boolean): Int {
     val currentCave = explored.last()
@@ -35,7 +33,7 @@ fun numberOfPaths(map: CaveMap, explored: Path, canVisit: (Path, Cave) -> Boolea
     return map[currentCave]!!.filter { canVisit(explored, it) }.sumOf { numberOfPaths(map, explored + it, canVisit) }
 }
 
-fun Cave.isLarge(): Boolean = this == uppercase()
+fun Cave.isLarge(): Boolean = this[0].isUpperCase()
 
 fun part2(input: Input): Output = numberOfPaths(createCaveMap(input), listOf("start")) { path, cave ->
     cave.isLarge() || cave !in path ||
