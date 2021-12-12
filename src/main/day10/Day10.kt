@@ -44,8 +44,6 @@ private fun Char.openingBracket(): Char = when (this) {
     else -> error("No opening Bracket for $this")
 }
 
-fun part2(input: Input): Output {
-    return input.mapNotNull { processLine(it).second }
-        .map { chars -> chars.reversed().map { it.score().toLong() }.reduce { acc, score -> acc * 5L + score } }
-        .median()
-}
+fun part2(input: Input): Output = input.mapNotNull { processLine(it).second }
+    .map { chars -> chars.reversed().map(Char::score).fold(0L) { acc, score -> acc * 5L + score } }
+    .median()
