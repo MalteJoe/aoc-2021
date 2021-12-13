@@ -46,7 +46,7 @@ internal class Day13Test {
     @Test
     fun part1() {
         val input = readInput("day13", ::mapInput)
-        assertEquals(TODO(), part1(input))
+        assertEquals(850, part1(input))
     }
 
     @Test

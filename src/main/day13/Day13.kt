@@ -18,11 +18,26 @@ fun mapInput(lines: Sequence<String>): Input {
         .map { it.split(',').map(String::toInt).let { (x, y) -> Dot(x, y) } }
     val foldParser = Regex("""([xy])=(\d+)$""")
     val folds = allLines.subList(splitAt + 1, allLines.size)
-        .mapNotNull { foldParser.find(it)?.destructured }
+        .map { foldParser.find(it)?.destructured ?: error("Error parsing $it") }
         .map { (axis, line) -> Fold(axis[0], line.toInt()) }
     return Pair(dots, folds)
 }
 
-fun part1(input: Input): Output = TODO()
+fun part1(input: Input): Output = foldPaper(input.second.subList(0, 1), input.first.toSet()).size
+
+private fun foldPaper(folds: List<Fold>, dots: Set<Dot>): Set<Dot> =
+    folds.fold(dots) { acc, fold -> acc.map { it.mirror(fold) }.toSet() }
+
+fun Dot.axis(axis: Char) = if (axis == 'x') x else y
+fun Dot.mirror(fold: Fold): Dot {
+    val ordinate = axis(fold.axis)
+    return when {
+        ordinate <= fold.line -> this
+        else -> when (fold.axis) {
+            'x' -> Dot(fold.line * 2 - x, y)
+            else -> Dot(x, fold.line * 2 - y)
+        }
+    }
+}
 
 fun part2(input: Input): Output = TODO()
