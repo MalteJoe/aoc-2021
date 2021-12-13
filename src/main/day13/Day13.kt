@@ -23,21 +23,27 @@ fun mapInput(lines: Sequence<String>): Input {
     return Pair(dots, folds)
 }
 
-fun part1(input: Input): Output = foldPaper(input.second.subList(0, 1), input.first.toSet()).size
+fun part1(input: Input): Output = foldPaper(input.first.toSet(), input.second.subList(0, 1)).size
 
-private fun foldPaper(folds: List<Fold>, dots: Set<Dot>): Set<Dot> =
+private fun foldPaper(dots: Set<Dot>, folds: List<Fold>): Set<Dot> =
     folds.fold(dots) { acc, fold -> acc.map { it.mirror(fold) }.toSet() }
 
 fun Dot.axis(axis: Char) = if (axis == 'x') x else y
-fun Dot.mirror(fold: Fold): Dot {
-    val ordinate = axis(fold.axis)
-    return when {
-        ordinate <= fold.line -> this
-        else -> when (fold.axis) {
-            'x' -> Dot(fold.line * 2 - x, y)
-            else -> Dot(x, fold.line * 2 - y)
-        }
+fun Dot.mirror(fold: Fold): Dot = when {
+    axis(fold.axis) <= fold.line -> this
+    else -> when (fold.axis) {
+        'x' -> Dot(fold.line * 2 - x, y)
+        else -> Dot(x, fold.line * 2 - y)
     }
 }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output {
+    val folded = foldPaper(input.first.toSet(), input.second)
+    for (y in 0..folded.maxOf { it.y }) {
+        for (x in 0..folded.maxOf { it.x }) {
+            print(if (Dot(x, y) in folded) '#' else ' ')
+        }
+        println()
+    }
+    return -1
+}
