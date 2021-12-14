@@ -29,9 +29,7 @@ fun part1(input: Input, steps: Int = 10): Output {
     val rules = input.insertionRules.toMap()
     var pairsFrequencies = input.template.pairwiseChars().histogram()
 
-    repeat(steps) {
-        pairsFrequencies = expand(pairsFrequencies, rules)
-    }
+    repeat(steps) { pairsFrequencies = expand(pairsFrequencies, rules) }
 
     val (min, max) = elementHistogram(pairsFrequencies, input.template.last()).values.minMaxOf { it }
     return max - min
