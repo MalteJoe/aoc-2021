@@ -51,5 +51,8 @@ fun orderIndependentRange(start: Int, end: Int) =
 /** Swap a pairs first and second value */
 fun <T, U> Pair<U, T>.swap(): Pair<T, U> = Pair(this.second, this.first)
 
+/** Calculate a histogram of the characters in this CharSequence */
+fun CharSequence.freqs(): Map<Char, Int> = groupingBy { it }.eachCount()
+
 /** Converts string to md5 hash. */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
