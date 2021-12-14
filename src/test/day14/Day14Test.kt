@@ -40,30 +40,40 @@ CN -> C"""
     @Test
     fun `expand example`() {
         val input = mapInput(sampleInput.lineSequence())
-        var polymer = input.template
+        var polymerPairs = input.template.pairwiseChars().histogram()
         val rules = input.insertionRules.toMap()
+        val lastElement = input.template.last()
+        val stringHistogram = { s: String -> s.freqs().mapValues { it.value.toLong() } }
 
-        polymer = expand(polymer, rules)
-        assertEquals("NCNBCHB", polymer)
+        polymerPairs = expand(polymerPairs, rules)
+        assertEquals(stringHistogram("NCNBCHB"), elementHistogram(polymerPairs, lastElement))
 
-        polymer = expand(polymer, rules)
-        assertEquals("NBCCNBBBCBHCB", polymer)
+        polymerPairs = expand(polymerPairs, rules)
+        assertEquals(
+            stringHistogram("NBCCNBBBCBHCB"), elementHistogram(polymerPairs, lastElement)
+        )
 
-        polymer = expand(polymer, rules)
-        assertEquals("NBBBCNCCNBBNBNBBCHBHHBCHB", polymer)
+        polymerPairs = expand(polymerPairs, rules)
+        assertEquals(
+            stringHistogram("NBBBCNCCNBBNBNBBCHBHHBCHB"), elementHistogram(polymerPairs, lastElement)
+        )
 
-        polymer = expand(polymer, rules)
-        assertEquals("NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB", polymer)
+        polymerPairs = expand(polymerPairs, rules)
+        assertEquals(
+            stringHistogram("NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB"),
+            elementHistogram(polymerPairs, lastElement)
+        )
 
-        polymer = expand(polymer, rules)
-        assertEquals(97, polymer.length)
+        polymerPairs = expand(polymerPairs, rules)
+        assertEquals(97, polymerPairs.values.sumOf { it } + 1)
 
-        repeat(5) { polymer = expand(polymer, rules) }
-        assertEquals(3073, polymer.length)
-        assertEquals(1749, polymer.freqs()['B'])
-        assertEquals(298, polymer.freqs()['C'])
-        assertEquals(161, polymer.freqs()['H'])
-        assertEquals(865, polymer.freqs()['N'])
+        repeat(5) { polymerPairs = expand(polymerPairs, rules) }
+        assertEquals(3073, polymerPairs.values.sumOf { it } + 1)
+        val elementHistogram = elementHistogram(polymerPairs, lastElement)
+        assertEquals(1749, elementHistogram['B'])
+        assertEquals(298, elementHistogram['C'])
+        assertEquals(161, elementHistogram['H'])
+        assertEquals(865, elementHistogram['N'])
     }
 
     @Test
@@ -79,16 +89,20 @@ CN -> C"""
     }
 
     @Test
-    @Ignore
-    fun `part2 example`() {
+    fun `part2 after 10 steps`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(1588, part2(input, steps = 10))
     }
 
     @Test
-    @Ignore
+    fun `part2 example`() {
+        val input = mapInput(sampleInput.lineSequence())
+        assertEquals(2188189693529, part2(input))
+    }
+
+    @Test
     fun part2() {
         val input = readInput("day14", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(4807056953866, part2(input))
     }
 }

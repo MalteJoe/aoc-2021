@@ -32,11 +32,10 @@ fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>>
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
 
 /** Convert a String to a List of Chars */
-fun String.charStream(): List<Char> = charStream { it }
+fun String.charList(): List<Char> = toCharArray().toList()
 
 /** Convert a String to a List of Chars and transforms them */
-inline fun <T> String.charStream(crossinline mapper: (Char) -> T): List<T> =
-    chars().mapToObj { mapper(it.toChar()) }.toList()
+inline fun <T> String.charList(crossinline mapper: (Char) -> T): List<T> = toCharArray().map(mapper)
 
 /** Returns minimum and maximum of the Iterable in a single pass */
 inline fun <T, R : Comparable<R>> Iterable<T>.minMaxOf(selector: (T) -> R): Pair<R, R> {
@@ -53,6 +52,9 @@ fun <T, U> Pair<U, T>.swap(): Pair<T, U> = Pair(this.second, this.first)
 
 /** Calculate a histogram of the characters in this CharSequence */
 fun CharSequence.freqs(): Map<Char, Int> = groupingBy { it }.eachCount()
+
+/** Calculate a histogram of the elements in this Iterable */
+fun <T> Iterable<T>.freqs(): Map<T, Int> = groupingBy { it }.eachCount()
 
 /** Converts string to md5 hash. */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
