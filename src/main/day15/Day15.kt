@@ -37,4 +37,7 @@ fun part1(input: Input): Output {
     return minimalRisks.values.last().cost
 }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output = part1(Input(5 * input.rows, 5 * input.cols) { (x, y) ->
+    (input[Matrix.Coordinate(x.mod(input.rows), y.mod(input.cols))] - 1
+            + x.div(input.rows) + y.div(input.cols)).mod(9) + 1
+})

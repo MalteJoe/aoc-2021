@@ -30,16 +30,14 @@ internal class Day15Test {
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(315, part2(input))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day15", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(2922, part2(input))
     }
 }
