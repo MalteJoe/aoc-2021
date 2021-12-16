@@ -14,6 +14,7 @@ interface Packet {
     val type: Int
     val subPackets: List<Packet>
     val value: Long
+    val versionSum: Long get() = version + subPackets.sumOf(Packet::versionSum)
 }
 
 data class Literal(override val version: Int, override val value: Long) : Packet {
@@ -41,12 +42,10 @@ data class Operator(
 
 fun mapInput(lines: Sequence<String>): Input = lines.first()
 
-fun part1(input: Input): Output = parsePacket(input.hexToBinary().reader()).versionSum()
+fun part1(input: Input): Output = parsePacket(input.hexToBinary().reader()).versionSum
 
 fun String.hexToBinary() = map { it.digitToInt(16).toString(2).padStart(4, '0') }.joinToString("")
-fun Packet.versionSum(): Long = version + subPackets.sumOf(Packet::versionSum)
-
-private fun StringReader.read(count: Int): String = String(CharArray(count).let { read(it); it })
+fun StringReader.read(count: Int): String = String(CharArray(count).also(::read))
 
 fun parsePacket(bitstream: StringReader): Packet {
     val version = bitstream.read(3).toInt(2)
