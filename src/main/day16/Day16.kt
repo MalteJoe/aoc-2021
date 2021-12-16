@@ -7,15 +7,16 @@ import java.io.*
 fun main() = advent("day16", ::mapInput, ::part1, ::part2)
 
 typealias Input = String
-typealias Output = Int
+typealias Output = Long
 
 interface Packet {
     val version: Int
     val type: Int
     val subPackets: List<Packet>
+    val value: Long
 }
 
-data class Literal(override val version: Int, val value: Long) : Packet {
+data class Literal(override val version: Int, override val value: Long) : Packet {
     override val type: Int get() = 4
     override val subPackets: List<Packet> get() = emptyList()
 }
@@ -24,14 +25,28 @@ data class Operator(
     override val version: Int,
     override val type: Int,
     override val subPackets: List<Packet>
-) : Packet
+) : Packet {
+    override val value: Long
+        get() = when (type) {
+            0 -> subPackets.sumOf { it.value }
+            1 -> subPackets.map(Packet::value).reduce(Long::times)
+            2 -> subPackets.minOf { it.value }
+            3 -> subPackets.maxOf { it.value }
+            5 -> if (subPackets[0].value > subPackets[1].value) 1 else 0
+            6 -> if (subPackets[0].value < subPackets[1].value) 1 else 0
+            7 -> if (subPackets[0].value == subPackets[1].value) 1 else 0
+            else -> error("Unexpected type $type")
+        }
+}
 
 fun mapInput(lines: Sequence<String>): Input = lines.first()
 
-fun String.hexToBinary() = map { it.digitToInt(16).toString(2).padStart(4, '0') }.joinToString("")
-fun Packet.versionSum(): Int = version + subPackets.sumOf(Packet::versionSum)
-
 fun part1(input: Input): Output = parsePacket(input.hexToBinary().reader()).versionSum()
+
+fun String.hexToBinary() = map { it.digitToInt(16).toString(2).padStart(4, '0') }.joinToString("")
+fun Packet.versionSum(): Long = version + subPackets.sumOf(Packet::versionSum)
+
+private fun StringReader.read(count: Int): String = String(CharArray(count).let { read(it); it })
 
 fun parsePacket(bitstream: StringReader): Packet {
     val version = bitstream.read(3).toInt(2)
@@ -46,8 +61,6 @@ fun parsePacket(bitstream: StringReader): Packet {
     }
     return Operator(version, type, subPackets)
 }
-
-private fun StringReader.read(count: Int): String = String(CharArray(count).let { read(it); it })
 
 fun parseSubpackets(bitstream: StringReader, length: Int): List<Packet> {
     val subPacketReader = StringReader(bitstream.read(length))
@@ -72,4 +85,4 @@ fun parseLiteralValue(bitstream: StringReader): Long {
     return builder.toString().toLong(2)
 }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output = parsePacket(input.hexToBinary().reader()).value

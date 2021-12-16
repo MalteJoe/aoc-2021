@@ -53,20 +53,24 @@ internal class Day16Test {
     @Test
     fun part1() {
         val input = readInput("day16", ::mapInput)
-        assertEquals(TODO(), part1(input))
+        assertEquals(969, part1(input))
     }
 
     @Test
-    @Ignore
-    fun `part2 example`() {
-        //val input = mapInput(sampleInput.lineSequence())
-        //assertEquals(TODO(), part2(input))
+    fun `part2 examples`() {
+        assertEquals(3, part2("C200B40A82"))
+        assertEquals(54, part2("04005AC33890"))
+        assertEquals(7, part2("880086C3E88112"))
+        assertEquals(9, part2("CE00C43D881120"))
+        assertEquals(1, part2("D8005AC2A8F0"))
+        assertEquals(0, part2("F600BC2D8F"))
+        assertEquals(0, part2("9C005AC2F8F0"))
+        assertEquals(1, part2("9C0141080250320F1802104A08"))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day16", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(124921618408, part2(input))
     }
 }
