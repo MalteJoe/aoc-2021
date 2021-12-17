@@ -1,6 +1,6 @@
 package day12
 
-import readInput
+import util.readInput
 import kotlin.test.*
 
 internal class Day12Test {

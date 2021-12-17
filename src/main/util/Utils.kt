@@ -1,9 +1,9 @@
+package util
+
 import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.io.path.Path
-import kotlin.io.path.useLines
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
+import kotlin.io.path.*
+import kotlin.time.*
 
 /** Read the input and print results with timings of the solutions */
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED")

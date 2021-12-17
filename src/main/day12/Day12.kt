@@ -1,7 +1,6 @@
 package day12
 
-import advent
-import swap
+import util.*
 
 /** [Passage Pathing](https://adventofcode.com/2021/day/12) */
 fun main() = advent("day12", ::mapInput, ::part1, ::part2)

@@ -1,7 +1,6 @@
 package day14
 
-import freqs
-import readInput
+import util.*
 import kotlin.test.*
 
 internal class Day14Test {

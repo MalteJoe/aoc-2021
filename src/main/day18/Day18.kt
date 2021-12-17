@@ -1,6 +1,6 @@
 package day18
 
-import advent
+import util.advent
 
 /** [TODO](https://adventofcode.com/2021/day/18) */
 fun main() = advent("day18", ::mapInput, ::part1, ::part2)

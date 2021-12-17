@@ -1,6 +1,6 @@
 package day03
 
-import advent
+import util.advent
 
 typealias Input = List<String>
 typealias Output = Int

@@ -1,9 +1,6 @@
 package day07
 
-import advent
-import median
-import minMaxOf
-import triangularNumber
+import util.*
 import kotlin.math.abs
 
 /**

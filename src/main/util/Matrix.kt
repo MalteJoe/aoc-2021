@@ -1,6 +1,9 @@
+package util
+
 import java.util.*
 import kotlin.math.abs
 
+/** Fixed size but variable content Matrix */
 class Matrix<T> {
     private val values: MutableList<MutableList<T>>
     val rows: Int

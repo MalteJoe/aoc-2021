@@ -1,6 +1,6 @@
 package day06
 
-import advent
+import util.advent
 
 /**
  * [Lanternfish](https://adventofcode.com/2021/day/6)

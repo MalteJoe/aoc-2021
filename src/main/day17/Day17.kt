@@ -1,8 +1,6 @@
 package day17
 
-import advent
-import triangularNumber
-import triangularNumbers
+import util.*
 import kotlin.math.sign
 
 /** [Trick Shot](https://adventofcode.com/2021/day/17) */
@@ -12,23 +10,18 @@ typealias Input = Area
 typealias Output = Int
 
 data class Area(val xRange: IntRange, val yRange: IntRange) {
-    operator fun contains(vector: Vector): Boolean = vector.x in xRange && vector.y in yRange
+    operator fun contains(vector: Vector<Int>): Boolean = vector.x in xRange && vector.y in yRange
 }
 
-data class Vector(val x: Int, val y: Int) {
-    fun hitsTarget(area: Area): Boolean {
-        var pos = this
-        var velocity = this
-        while (pos.x <= area.xRange.last && pos.y >= area.yRange.first) {
-            if (pos in area) return true
-            velocity += Vector(-velocity.x.sign, -1)
-            pos += velocity
-        }
-        return false
+fun Vector<Int>.hitsTarget(area: Area): Boolean {
+    var pos = this
+    var velocity = this
+    while (pos.x <= area.xRange.last && pos.y >= area.yRange.first) {
+        if (pos in area) return true
+        velocity += Vector(-velocity.x.sign, -1)
+        pos += velocity
     }
-
-    operator fun plus(vector: Vector): Vector = Vector(x + vector.x, y + vector.y)
-
+    return false
 }
 
 fun mapInput(lines: Sequence<String>): Input {
@@ -38,10 +31,11 @@ fun mapInput(lines: Sequence<String>): Input {
     return Area(groups[0]..groups[1], groups[2]..groups[3])
 }
 
-// x coordinates are irrelevant for part 1.
-// We always want to shoot up, at some point yVelocity becomes 0 and visits the same y values on its
-// way back down. So the "best" shot is reaching the target within 1 step after having same y as the origin.
-fun part1(input: Input): Output = triangularNumber(input.yRange.first)
+fun part1(input: Input): Output =
+    // x coordinates are irrelevant for part 1.
+    // We always want to shoot up, at some point yVelocity becomes 0 and visits the same y values on its
+    // way back down. So the "best" shot is reaching the target within 1 step after having same y as the origin.
+    triangularNumber(input.yRange.first)
 
 fun part2(input: Input): Output {
     // drag reduces xVelocity by 1 in each step, so there is a minimum to reach the target area

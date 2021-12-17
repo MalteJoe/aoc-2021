@@ -1,6 +1,6 @@
 package day02
 
-import advent
+import util.advent
 
 typealias Input = List<Command>
 typealias Output = Int

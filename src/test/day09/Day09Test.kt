@@ -1,6 +1,6 @@
 package day09
 
-import readInput
+import util.readInput
 import kotlin.test.*
 
 internal class Day09Test {

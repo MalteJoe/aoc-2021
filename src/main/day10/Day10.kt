@@ -1,7 +1,6 @@
 package day10
 
-import advent
-import median
+import util.*
 
 /** [Syntax Scoring](https://adventofcode.com/2021/day/10) */
 fun main() = advent("day10", ::mapInput, ::part1, ::part2)

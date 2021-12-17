@@ -1,7 +1,7 @@
 package day04
 
-import advent
-import kotlin.math.*
+import util.advent
+import kotlin.math.min
 
 /**
  * [Giant Squid](https://adventofcode.com/2021/day/4)
@@ -47,7 +47,7 @@ fun mapInput(lines: Sequence<String>): Input {
 }
 
 /**
- * Parse a list of Strings each separated by whitespace into a Matrix applying the given transformation
+ * Parse a list of Strings each separated by whitespace into a util.Matrix applying the given transformation
  */
 fun <T> parseMatrix(list: List<String>, transform: (String) -> T, delimiter: Regex = Regex("[^\\w]+")): List<List<T>> {
     return List(list.size) { list[it].trim().split(delimiter).map(transform = transform) }

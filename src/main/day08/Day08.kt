@@ -1,6 +1,6 @@
 package day08
 
-import advent
+import util.*
 import kotlin.streams.*
 
 /**

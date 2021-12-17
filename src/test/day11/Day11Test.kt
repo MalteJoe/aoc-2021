@@ -1,9 +1,7 @@
 package day11
 
-import Matrix
-import readInput
-import kotlin.io.path.Path
-import kotlin.io.path.useLines
+import util.*
+import kotlin.io.path.*
 import kotlin.test.*
 
 internal class Day11Test {

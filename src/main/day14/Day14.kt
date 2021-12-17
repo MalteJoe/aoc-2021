@@ -1,8 +1,6 @@
 package day14
 
-import advent
-import freqs
-import minMaxOf
+import util.*
 
 /** [Extended Polymerization](https://adventofcode.com/2021/day/14) */
 fun main() = advent("day14", ::mapInput, ::part1, ::part2)

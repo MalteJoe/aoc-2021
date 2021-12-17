@@ -1,6 +1,6 @@
 package day01
 
-import advent
+import util.advent
 
 
 /**

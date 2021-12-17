@@ -1,7 +1,6 @@
 package day09
 
-import advent
-import charList
+import util.*
 
 /**
  * [Smoke Basin](https://adventofcode.com/2021/day/9)

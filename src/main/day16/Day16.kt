@@ -1,7 +1,7 @@
 package day16
 
-import advent
-import java.io.*
+import util.advent
+import java.io.StringReader
 
 /** [Packet Decoder](https://adventofcode.com/2021/day/16) */
 fun main() = advent("day16", ::mapInput, ::part1, ::part2)

@@ -1,9 +1,6 @@
 package day11
 
-import Matrix
-import advent
-import charList
-import plusAssign
+import util.*
 
 /** [Dumbo Octopus](https://adventofcode.com/2021/day/11) */
 fun main() = advent("day11", ::mapInput, ::part1, ::part2)

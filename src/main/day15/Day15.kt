@@ -1,8 +1,6 @@
 package day15
 
-import Matrix
-import advent
-import charList
+import util.*
 import java.util.*
 
 /** [Chiton](https://adventofcode.com/2021/day/15) */
