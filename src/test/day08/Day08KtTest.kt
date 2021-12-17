@@ -46,7 +46,6 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day08", ::mapInput)
         assertEquals(1046281, part2(input))
