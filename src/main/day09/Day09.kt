@@ -1,6 +1,6 @@
 package day09
 
-import util.*
+import util.advent
 
 /**
  * [Smoke Basin](https://adventofcode.com/2021/day/9)
@@ -10,7 +10,7 @@ fun main() = advent("day09", ::mapInput, ::part1, ::part2)
 typealias Input = List<List<Int>>
 typealias Output = Int
 
-fun mapInput(lines: Sequence<String>): Input = lines.map { it.charList(Char::digitToInt) }.toList()
+fun mapInput(lines: Sequence<String>): Input = lines.map { it.map(Char::digitToInt) }.toList()
 
 fun part1(input: Input): Output = minima2d(input).sumOf { (_, _, v) -> v + 1 }
 

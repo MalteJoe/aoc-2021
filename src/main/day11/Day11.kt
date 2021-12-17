@@ -9,7 +9,7 @@ typealias Input = Matrix<Int>
 typealias Output = Int
 
 
-fun mapInput(lines: Sequence<String>): Input = Matrix(lines.map { it.charList(Char::digitToInt) }.toList())
+fun mapInput(lines: Sequence<String>): Input = Matrix(lines.map { it.map(Char::digitToInt) }.toList())
 
 fun part1(input: Input, steps: Int = 100): Output {
     var totalFlashes = 0

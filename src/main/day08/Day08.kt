@@ -57,7 +57,7 @@ fun part2(input: Input): Output {
         var result = 0
         line.outputValue.forEach { scrambled ->
             result *= 10
-            result += segmentDisplays.indexOf(scrambled.charList().map { unscramble[it] }.toSet())
+            result += segmentDisplays.indexOf(scrambled.map { unscramble[it] }.toSet())
         }
         result
     }

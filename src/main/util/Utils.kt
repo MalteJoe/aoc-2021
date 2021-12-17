@@ -31,12 +31,6 @@ fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>>
 /** Calculate the median (rounding down) */
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
 
-/** Convert a String to a List of Chars */
-fun String.charList(): List<Char> = toCharArray().toList()
-
-/** Convert a String to a List of Chars and transforms them */
-inline fun <T> String.charList(crossinline mapper: (Char) -> T): List<T> = toCharArray().map(mapper)
-
 /** Returns minimum and maximum of the Iterable in a single pass */
 inline fun <T, R : Comparable<R>> Iterable<T>.minMaxOf(selector: (T) -> R): Pair<R, R> {
     return Pair(minOf(selector), maxOf(selector))

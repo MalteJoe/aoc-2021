@@ -13,7 +13,7 @@ typealias Node = Matrix.Coordinate
 
 data class Cost(val node: Node, val cost: Int)
 
-fun mapInput(lines: Sequence<String>): Input = Matrix(lines.map { it.charList(Char::digitToInt) }.toList())
+fun mapInput(lines: Sequence<String>): Input = Matrix(lines.map { it.map(Char::digitToInt) }.toList())
 
 fun part1(input: Input): Output {
     val start = Node(0, 0)
