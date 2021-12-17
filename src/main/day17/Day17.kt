@@ -17,6 +17,12 @@ fun mapInput(lines: Sequence<String>): Input {
     return Area(groups[0]..groups[1], groups[2]..groups[3])
 }
 
-fun part1(input: Input): Output = TODO()
+fun part1(input: Input): Output {
+    // x coordinates are irrelevant for part 1.
+    // We always want to shoot up, at some point yVelocity becomes 0 and visits the sam y values on it's
+    // way back down. So the "best" shot is reaching the target within 1 step after having same y as the origin.
+    // Max Y is calculated by the triangular number formula
+    return input.yRange.first * (input.yRange.first + 1) / 2
+}
 
 fun part2(input: Input): Output = TODO()
