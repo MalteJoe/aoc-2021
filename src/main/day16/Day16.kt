@@ -44,7 +44,7 @@ fun mapInput(lines: Sequence<String>): Input = lines.first()
 
 fun part1(input: Input): Output = parsePacket(input.hexToBinary().reader()).versionSum
 
-fun String.hexToBinary() = map { it.digitToInt(16).toString(2).padStart(4, '0') }.joinToString("")
+fun String.hexToBinary() = toBigInteger(16).toString(2).padStart(4 * length, '0')
 fun StringReader.read(count: Int): String = String(CharArray(count).also(::read))
 
 fun parsePacket(bitstream: StringReader): Packet {
