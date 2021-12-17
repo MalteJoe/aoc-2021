@@ -2,7 +2,7 @@ package day05
 
 import kotlin.test.*
 
-internal class Day05Test {
+internal class Day05KtTest {
 
     private val sampleInput: String = """0,9 -> 5,9
 8,0 -> 0,8

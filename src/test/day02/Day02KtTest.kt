@@ -2,7 +2,7 @@ package day02
 
 import kotlin.test.*
 
-internal class Day02Test {
+internal class Day02KtTest {
 
     private val sampleInput: String = """forward 5
 down 5

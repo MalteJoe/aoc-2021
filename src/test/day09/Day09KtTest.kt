@@ -3,7 +3,7 @@ package day09
 import util.readInput
 import kotlin.test.*
 
-internal class Day09Test {
+internal class Day09KtTest {
 
     private val sampleInput: String = """2199943210
 3987894921

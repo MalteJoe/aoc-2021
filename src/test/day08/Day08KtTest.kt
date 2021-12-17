@@ -3,7 +3,7 @@ package day08
 import util.readInput
 import kotlin.test.*
 
-internal class Day08Test {
+internal class Day08KtTest {
 
     private val sampleInput: String =
         """be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe

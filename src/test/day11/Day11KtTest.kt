@@ -4,7 +4,7 @@ import util.*
 import kotlin.io.path.*
 import kotlin.test.*
 
-internal class Day11Test {
+internal class Day11KtTest {
 
     private fun readTestInput(name: String) = Path("src/test/day11", name).useLines(block = ::mapInput)
 

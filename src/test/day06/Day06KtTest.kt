@@ -3,7 +3,7 @@ package day06
 import util.readInput
 import kotlin.test.*
 
-internal class Day06Test {
+internal class Day06KtTest {
 
     private val sampleInput: String = "3,4,3,1,2"
 

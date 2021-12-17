@@ -3,7 +3,7 @@ package day14
 import util.*
 import kotlin.test.*
 
-internal class Day14Test {
+internal class Day14KtTest {
 
     private val sampleInput: String = """NNCB
 

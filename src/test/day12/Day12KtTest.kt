@@ -3,7 +3,7 @@ package day12
 import util.readInput
 import kotlin.test.*
 
-internal class Day12Test {
+internal class Day12KtTest {
 
     private val shortExample =
         """start-A

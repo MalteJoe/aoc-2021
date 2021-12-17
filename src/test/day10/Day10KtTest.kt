@@ -3,7 +3,7 @@ package day10
 import util.readInput
 import kotlin.test.*
 
-internal class Day10Test {
+internal class Day10KtTest {
 
     private val sampleInput: String = """[({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(

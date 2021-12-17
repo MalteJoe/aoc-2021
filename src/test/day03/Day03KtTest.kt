@@ -2,7 +2,7 @@ package day03
 
 import kotlin.test.*
 
-internal class Day03Test {
+internal class Day03KtTest {
 
     private val sampleInput: String =
         """00100

@@ -3,7 +3,7 @@ package day17
 import util.readInput
 import kotlin.test.*
 
-internal class Day17Test {
+internal class Day17KtTest {
 
     private val sampleInput: String = "target area: x=20..30, y=-10..-5"
 

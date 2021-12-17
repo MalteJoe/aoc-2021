@@ -3,7 +3,7 @@ package day16
 import util.readInput
 import kotlin.test.*
 
-internal class Day16Test {
+internal class Day16KtTest {
 
     @Test
     fun `parse literal`() {
