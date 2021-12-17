@@ -3,6 +3,7 @@ package day18
 import util.readInput
 import kotlin.test.*
 
+@Ignore
 internal class Day18KtTest {
 
     private val sampleInput: String = TODO()
