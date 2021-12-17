@@ -3,6 +3,7 @@ package day07
 import advent
 import median
 import minMaxOf
+import triangularNumber
 import kotlin.math.abs
 
 /**
@@ -23,9 +24,6 @@ fun part1(input: Input): Output {
 fun part2(input: Input): Output {
     val (from, to) = input.minMaxOf { it }
     return (from..to).map { i ->
-        input.sumOf {
-            val steps = abs(i - it)
-            steps * (steps + 1) / 2
-        }
+        input.sumOf { triangularNumber(abs(i - it)) }
     }.minOf { it }
 }

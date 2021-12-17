@@ -56,5 +56,18 @@ fun CharSequence.freqs(): Map<Char, Int> = groupingBy { it }.eachCount()
 /** Calculate a histogram of the elements in this Iterable */
 fun <T> Iterable<T>.freqs(): Map<T, Int> = groupingBy { it }.eachCount()
 
+/** Infinite sequence of triangular numbers */
+fun triangularNumbers() = sequence {
+    var i = 1
+    var sum = 1
+    do {
+        yield(Pair(i, sum))
+        sum += ++i
+    } while (true)
+}
+
+/**  Formula to calculate triangular number directly */
+fun triangularNumber(i: Int): Int = i * (i + 1) / 2
+
 /** Converts string to md5 hash. */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
