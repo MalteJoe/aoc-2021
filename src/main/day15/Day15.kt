@@ -10,6 +10,7 @@ typealias Input = Matrix<Int>
 typealias Output = Int
 
 typealias Node = Matrix.Coordinate
+
 data class Cost(val node: Node, val cost: Int)
 
 fun mapInput(lines: Sequence<String>): Input = Matrix(lines.map { it.charList(Char::digitToInt) }.toList())
@@ -33,6 +34,6 @@ fun part1(input: Input): Output {
 }
 
 fun part2(input: Input): Output = part1(Input(5 * input.rows, 5 * input.cols) { (x, y) ->
-    (input[Matrix.Coordinate(x.mod(input.rows), y.mod(input.cols))] - 1
-            + x.div(input.rows) + y.div(input.cols)).mod(9) + 1
+    val valueInInput = input[Matrix.Coordinate(x.mod(input.rows), y.mod(input.cols))]
+    (valueInInput - 1 + x.div(input.rows) + y.div(input.cols)).mod(9) + 1
 })

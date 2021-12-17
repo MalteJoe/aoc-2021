@@ -28,7 +28,7 @@ fun part1(input: Input): Output = input.sumOf { line -> line.outputValue.count {
 fun part2(input: Input): Output {
     return input.sumOf { line ->
         val charSets: List<Set<Char>> = line.patterns.map { it.charList().toSet() }
-        val characterCounts = charSets.flatten().groupingBy { it }.eachCount()
+        val characterCounts = charSets.flatten().freqs()
         val unscramble: MutableMap<Char, Char> = mutableMapOf()
 
         val digitOne = line.patterns.withIndex().first { it.value.length == 2 }

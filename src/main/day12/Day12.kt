@@ -35,6 +35,5 @@ fun numberOfPaths(map: CaveMap, explored: Path, canVisit: (Path, Cave) -> Boolea
 fun Cave.isLarge(): Boolean = this[0].isUpperCase()
 
 fun part2(input: Input): Output = numberOfPaths(createCaveMap(input), listOf("start")) { path, cave ->
-    cave.isLarge() || cave !in path ||
-            cave != "start" && !path.filterNot { it.isLarge() }.groupingBy { it }.eachCount().values.contains(2)
+    cave.isLarge() || cave !in path || cave != "start" && !path.filterNot { it.isLarge() }.freqs().values.contains(2)
 }
