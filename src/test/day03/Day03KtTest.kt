@@ -1,5 +1,6 @@
 package day03
 
+import util.readInput
 import kotlin.test.*
 
 internal class Day03KtTest {
@@ -23,10 +24,22 @@ internal class Day03KtTest {
         val input = mapInput(sampleInput.lineSequence())
         assertEquals(198, part1(input))
     }
+    
+        @Test
+    fun part1() {
+        val input = readInput("day03", ::mapInput)
+        assertEquals(3958484, part1(input))
+    }
 
     @Test
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
         assertEquals(230, part2(input))
+    }
+
+    @Test
+    fun part2() {
+        val input = readInput("day03", ::mapInput)
+        assertEquals(1613181, part2(input))
     }
 }

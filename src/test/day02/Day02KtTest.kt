@@ -1,5 +1,6 @@
 package day02
 
+import util.readInput
 import kotlin.test.*
 
 internal class Day02KtTest {
@@ -33,8 +34,20 @@ forward 2"""
     }
 
     @Test
+    fun part1() {
+        val input = readInput("day02", ::mapInput)
+        assertEquals(1636725, part1(input))
+    }
+
+    @Test
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
         assertEquals(900, part2(input))
+    }
+
+    @Test
+    fun part2() {
+        val input = readInput("day02", ::mapInput)
+        assertEquals(1872757425, part2(input))
     }
 }
