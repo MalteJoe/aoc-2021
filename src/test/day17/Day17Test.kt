@@ -5,12 +5,12 @@ import kotlin.test.*
 
 internal class Day17Test {
 
-    private val sampleInput: String = TODO()
+    private val sampleInput: String = "target area: x=20..30, y=-10..-5"
 
 
     @Test
     fun parseInput() {
-        assertEquals(TODO(), mapInput(sampleInput.lineSequence()))
+        assertEquals(Area(20..30, -10..-5), mapInput(sampleInput.lineSequence()))
     }
 
     @Test
