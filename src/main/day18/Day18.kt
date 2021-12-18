@@ -14,7 +14,7 @@ fun mapInput(lines: Sequence<String>): Input = lines.map(String::reader).map(::p
 
 fun part1(input: Input): Output = input.reduce { acc, number -> (acc + number).reduced() }
 
-fun part2(input: Input): Output = input.allCombinations().flatMap { listOf(it, it.swapped()) }
+fun part2(input: Input): Output = input.allCombinations(commutative = false)
     .map { (x, y) -> (x + y).reduced() }
     .maxByOrNull(Number::magnitude)!!
 

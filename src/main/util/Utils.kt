@@ -28,11 +28,20 @@ fun <T> readInput(name: String, block: (Sequence<String>) -> T) =
     Path("src/main/$name", "input").useLines(block = block)
 
 /**
- * Create all pairwise combinations. Does not include reverse combinations. (e.g. [1,2,3] yields (1,3) but not (3,1))
+ * Create all pairwise combinations.
  * @param withSelf include combination of element with itself (e.g. [1,2,3] yields (2,2) at some point)
+ * @param commutative if true, skip reverse combinations. (e.g. [1,2,3] yields (1,3) but not (3,1))
  */
-fun <T> List<T>.allCombinations(withSelf: Boolean = false): Sequence<Pair<T, T>> =
-    sequence { forEachIndexed { i, a -> subList((if (withSelf) 0 else 1) + i, size).forEach { yield(Pair(a, it)) } } }
+fun <T> List<T>.allCombinations(withSelf: Boolean = false, commutative: Boolean = true): Sequence<Pair<T, T>> =
+    sequence {
+        forEachIndexed { i, a ->
+            when {
+                commutative -> subList((if (withSelf) 0 else 1) + i, size)
+                withSelf -> this@allCombinations
+                else -> toMutableList().also { it.removeAt(i) }
+            }.forEach { yield(Pair(a, it)) }
+        }
+    }
 
 /** Calculate the median (rounding down) */
 fun <T : Comparable<T>> Collection<T>.median(): T = sorted()[size / 2]
@@ -43,9 +52,8 @@ inline fun <T, R : Comparable<R>> Iterable<T>.minMaxOf(selector: (T) -> R): Pair
 }
 
 /** Range with may go negative steps */
-fun orderIndependentRange(start: Int, end: Int) =
-    if (start <= end) start..end
-    else IntProgression.fromClosedRange(start, end, -1)
+fun orderIndependentRange(start: Int, end: Int) = if (start <= end) start..end
+else IntProgression.fromClosedRange(start, end, -1)
 
 /** Swap a pairs first and second value */
 fun <T, U> Pair<U, T>.swapped(): Pair<T, U> = Pair(this.second, this.first)
