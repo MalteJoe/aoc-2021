@@ -5,19 +5,16 @@ import java.io.StringReader
 import kotlin.math.sign
 
 /** [Snailfish](https://adventofcode.com/2021/day/18) */
-fun main() = advent("day18", ::mapInput, ::part1, ::part2)
+fun main() = advent("day18", ::mapInput, ::part1, ::part2) { "${it.magnitude()} $it" }
 
 typealias Input = List<Number>
-typealias Output = Int
+typealias Output = Number
 
 fun mapInput(lines: Sequence<String>): Input = lines.map(String::reader).map(::parseNumber).toList()
 
-fun part1(input: Input): Output = input.sum().magnitude()
-fun Input.sum() = reduce { acc, number -> (acc + number).reduced() }
+fun part1(input: Input): Output = input.reduce { acc, number -> (acc + number).reduced() }
 
-fun part2(input: Input): Output = findLargestSum(input).magnitude()
-
-fun findLargestSum(input: Input) = input.allCombinations().flatMap { listOf(it, it.swapped()) }
+fun part2(input: Input): Output = input.allCombinations().flatMap { listOf(it, it.swapped()) }
     .map { (x, y) -> (x + y).reduced() }
     .maxByOrNull(Number::magnitude)!!
 

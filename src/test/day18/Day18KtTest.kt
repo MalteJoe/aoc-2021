@@ -62,7 +62,7 @@ internal class Day18KtTest {
     @Test
     fun `part1 small examples`() {
         var input = mapInput("[[[[4,3],4],4],[7,[[8,4],9]]]\n[1,1]".lineSequence())
-        assertEquals(parseNumber("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]".reader()), input.sum())
+        assertEquals(parseNumber("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]".reader()), part1(input))
 
         input = mapInput(
             """[1,1]
@@ -70,7 +70,7 @@ internal class Day18KtTest {
               |[3,3]
               |[4,4]""".trimMargin().lineSequence()
         )
-        assertEquals(parseNumber("[[[[1,1],[2,2]],[3,3]],[4,4]]".reader()), input.sum())
+        assertEquals(parseNumber("[[[[1,1],[2,2]],[3,3]],[4,4]]".reader()), part1(input))
 
         input = mapInput(
             """[1,1]
@@ -79,7 +79,7 @@ internal class Day18KtTest {
               |[4,4]
               |[5,5]""".trimMargin().lineSequence()
         )
-        assertEquals(parseNumber("[[[[3,0],[5,3]],[4,4]],[5,5]]".reader()), input.sum())
+        assertEquals(parseNumber("[[[[3,0],[5,3]],[4,4]],[5,5]]".reader()), part1(input))
 
         input = mapInput(
             """[1,1]
@@ -89,7 +89,7 @@ internal class Day18KtTest {
               |[5,5]
               |[6,6]""".trimMargin().lineSequence()
         )
-        assertEquals(parseNumber("[[[[5,0],[7,4]],[5,5]],[6,6]]".reader()), input.sum())
+        assertEquals(parseNumber("[[[[5,0],[7,4]],[5,5]],[6,6]]".reader()), part1(input))
     }
 
     @Test
@@ -106,8 +106,7 @@ internal class Day18KtTest {
               |[[[5,[7,4]],7],1]
               |[[[[4,2],2],6],[8,7]]""".trimMargin().lineSequence()
         )
-        val finalNumber = input.sum()
-        assertEquals(parseNumber("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]".reader()), finalNumber)
+        assertEquals(parseNumber("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]".reader()), part1(input))
     }
 
     @Test
@@ -137,7 +136,7 @@ internal class Day18KtTest {
 
     @Test
     fun `part1 example`() {
-        val finalNumber = mapInput(lastAssignment).sum()
+        val finalNumber = part1(mapInput(lastAssignment))
         assertEquals(parseNumber("[[[[6,6],[7,6]],[[7,7],[7,0]]],[[[7,7],[7,7]],[[7,8],[9,9]]]]".reader()), finalNumber)
         assertEquals(4140, finalNumber.magnitude())
     }
@@ -145,23 +144,19 @@ internal class Day18KtTest {
     @Test
     fun part1() {
         val input = readInput("day18", ::mapInput)
-        assertEquals(4137, part1(input))
+        assertEquals(4137, part1(input).magnitude())
     }
 
     @Test
     fun `part2 example`() {
-        val input = mapInput(lastAssignment)
-        assertEquals(
-            parseNumber("[[[[7,8],[6,6]],[[6,0],[7,7]]],[[[7,8],[8,8]],[[7,9],[0,6]]]]".reader()),
-            findLargestSum(input)
-        )
-
-        assertEquals(3993, part2(input))
+        val largestSum = part2(mapInput(lastAssignment))
+        assertEquals(parseNumber("[[[[7,8],[6,6]],[[6,0],[7,7]]],[[[7,8],[8,8]],[[7,9],[0,6]]]]".reader()), largestSum)
+        assertEquals(3993, largestSum.magnitude())
     }
 
     @Test
     fun part2() {
         val input = readInput("day18", ::mapInput)
-        assertEquals(4573, part2(input))
+        assertEquals(4573, part2(input).magnitude())
     }
 }

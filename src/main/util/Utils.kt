@@ -8,13 +8,19 @@ import kotlin.time.*
 /** Read the input and print results with timings of the solutions */
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
 @OptIn(ExperimentalTime::class)
-fun <I, O> advent(dir: String, parse: (Sequence<String>) -> I, part1: (I) -> O, part2: (I) -> O) {
+fun <I, O> advent(
+    dir: String,
+    parse: (Sequence<String>) -> I,
+    part1: (I) -> O,
+    part2: (I) -> O,
+    formatter: (O) -> Any = Any?::toString
+) {
     val (input, parseTime) = measureTimedValue { readInput(dir, parse) }
     println("Input read in $parseTime")
     val (soluti0n, durati0n) = measureTimedValue { part1(input) }
-    println("Part 1: $soluti0n (took $durati0n)")
+    println("Part 1: ${formatter(soluti0n)} (took $durati0n)")
     val (solut1on, durat1on) = measureTimedValue { part2(input) }
-    println("Part 2: $solut1on (took $durat1on)")
+    println("Part 2: ${formatter(solut1on)} (took $durat1on)")
 }
 
 /** Reads lines from the given input txt file and transforms the input */
