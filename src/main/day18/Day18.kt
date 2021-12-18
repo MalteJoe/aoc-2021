@@ -1,6 +1,6 @@
 package day18
 
-import util.advent
+import util.*
 import java.io.StringReader
 import kotlin.math.sign
 
@@ -15,7 +15,11 @@ fun mapInput(lines: Sequence<String>): Input = lines.map(String::reader).map(::p
 fun part1(input: Input): Output = input.sum().magnitude()
 fun Input.sum() = reduce { acc, number -> (acc + number).reduced() }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output = findLargestSum(input).magnitude()
+
+fun findLargestSum(input: Input) = input.allCombinations().flatMap { listOf(it, it.swapped()) }
+    .map { (x, y) -> (x + y).reduced() }
+    .maxByOrNull(Number::magnitude)!!
 
 fun parseNumber(reader: StringReader): Number {
     assert(reader.read() == '['.code)

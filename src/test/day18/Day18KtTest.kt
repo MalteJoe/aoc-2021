@@ -123,21 +123,21 @@ internal class Day18KtTest {
         assertEquals(3488, parseNumber("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]".reader()).magnitude())
     }
 
+    private val lastAssignment =
+        """[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
+          |[[[5,[2,8]],4],[5,[[9,9],0]]]
+          |[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
+          |[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
+          |[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
+          |[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
+          |[[[[5,4],[7,7]],8],[[8,3],8]]
+          |[[9,3],[[9,9],[6,[4,9]]]]
+          |[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
+          |[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]""".trimMargin().lineSequence()
+
     @Test
     fun `part1 example`() {
-        val input = mapInput(
-            """[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
-              |[[[5,[2,8]],4],[5,[[9,9],0]]]
-              |[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
-              |[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
-              |[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
-              |[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
-              |[[[[5,4],[7,7]],8],[[8,3],8]]
-              |[[9,3],[[9,9],[6,[4,9]]]]
-              |[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
-              |[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]""".trimMargin().lineSequence()
-        )
-        val finalNumber = input.sum()
+        val finalNumber = mapInput(lastAssignment).sum()
         assertEquals(parseNumber("[[[[6,6],[7,6]],[[7,7],[7,0]]],[[[7,7],[7,7]],[[7,8],[9,9]]]]".reader()), finalNumber)
         assertEquals(4140, finalNumber.magnitude())
     }
@@ -149,9 +149,19 @@ internal class Day18KtTest {
     }
 
     @Test
-    @Ignore
+    fun `part2 example`() {
+        val input = mapInput(lastAssignment)
+        assertEquals(
+            parseNumber("[[[[7,8],[6,6]],[[6,0],[7,7]]],[[[7,8],[8,8]],[[7,9],[0,6]]]]".reader()),
+            findLargestSum(input)
+        )
+
+        assertEquals(3993, part2(input))
+    }
+
+    @Test
     fun part2() {
         val input = readInput("day18", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(4573, part2(input))
     }
 }

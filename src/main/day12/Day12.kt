@@ -24,7 +24,8 @@ fun part1(input: Input): Output = numberOfPaths(createCaveMap(input), listOf("st
     cave.isLarge() || cave !in path
 }
 
-fun createCaveMap(input: Input) = (input + (input.map(Connection::swap))).groupBy(Connection::first, Connection::second)
+fun createCaveMap(input: Input) =
+    (input + (input.map(Connection::swapped))).groupBy(Connection::first, Connection::second)
 
 fun numberOfPaths(map: CaveMap, explored: Path, canVisit: (Path, Cave) -> Boolean): Int {
     val currentCave = explored.last()
