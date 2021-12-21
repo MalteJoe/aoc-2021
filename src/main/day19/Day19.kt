@@ -1,12 +1,16 @@
 package day19
 
 import util.*
+import kotlin.math.absoluteValue
 
 /** [Beacon Scanner](https://adventofcode.com/2021/day/19) */
-fun main() = advent("day19", ::mapInput, ::part1, ::part2) { it.size }
+fun main() = advent("day19", ::mapInput, ::part1, ::part2)
 
 typealias Input = List<Scanner>
-typealias Output = Set<Vector<Int>>
+typealias Output = Int
+
+data class Scanner(val index: Int, val beacons: List<Vector<Int>>)
+typealias Transformation = Matrix<Int>
 
 fun mapInput(lines: Sequence<String>): Input = lines.chunked(String::isEmpty).map { scannerData ->
     val index = Regex("\\d+").find(scannerData[0])?.value?.toInt() ?: error("Invalid Scanner number ${scannerData[0]}")
@@ -17,6 +21,15 @@ fun mapInput(lines: Sequence<String>): Input = lines.chunked(String::isEmpty).ma
 }.toList()
 
 fun part1(input: Input): Output {
+    // Set of beacons in scanner 0's coordinate system
+    return uniqueBeacons(arrangeScanners(input)).size
+}
+
+internal fun uniqueBeacons(arrangement: Map<Scanner, Transformation>) =
+    arrangement.flatMap { (scanner, transformation) -> scanner.beacons.map { transformation * it.homogenous() } }
+        .toSet()
+
+internal fun arrangeScanners(input: Input): Map<Scanner, Transformation> {
     val transformations = mutableMapOf(Pair(input[0], unitMatrix(4)))
     val remainingScanners = input.subList(1, input.size).toMutableSet()
 
@@ -24,18 +37,13 @@ fun part1(input: Input): Output {
         val (matchingScanner, transformation) = remainingScanners.asSequence().flatMap { scanner ->
             transformations.mapNotNull { (knownScanner, transformationToKnown) ->
                 val inverse = findInverseTransformation(knownScanner, scanner)
-                if (inverse != null) {
-                    transformationToKnown * inverse
-                } else null
+                if (inverse != null) transformationToKnown * inverse else null
             }.map { Pair(scanner, it) }
         }.first()
         remainingScanners.remove(matchingScanner)
         transformations[matchingScanner] = transformation
     }
-
-    // Set of beacons in scanner 0's coordinate system
-    return transformations.flatMap { (scanner, transformation) -> scanner.beacons.map { transformation * it.homogenous() } }
-        .toSet()
+    return transformations
 }
 
 fun findInverseTransformation(known: Scanner, unknown: Scanner): Transformation? {
@@ -123,11 +131,12 @@ val allRotations by lazy {
     }.toList()
 }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output = arrangeScanners(input).values
+    .map { it * Vector(0, 0, 0, 1) }
+    .allCombinations()
+    .maxOf { (it.first - it.second).manhattanLength() }
 
-data class Scanner(val index: Int, val beacons: List<Vector<Int>>)
-
-typealias Transformation = Matrix<Int>
+private fun Vector<Int>.manhattanLength(): Int = values.slice(0..2).map(Int::absoluteValue).sum()
 
 inline fun <T> Sequence<T>.chunked(crossinline delimiter: (T) -> Boolean): Sequence<List<T>> {
     val underlyingSequence = this

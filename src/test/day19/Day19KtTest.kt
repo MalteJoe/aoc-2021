@@ -57,32 +57,30 @@ internal class Day19KtTest {
     @Test
     fun `part1 only scanner 0 and 1`() {
         val input = readTestInput()
-        assertEquals(50 - 12, part1(input.subList(0, 2)).size)
+        assertEquals(50 - 12, part1(input.subList(0, 2)))
     }
 
     @Test
     fun `part1 example`() {
         val input = readTestInput()
-        assertEquals(79, part1(input).size)
+        assertEquals(79, part1(input))
     }
 
     @Test
     fun part1() {
         val input = readInput("day19", ::mapInput)
-        assertEquals(313, part1(input).size)
+        assertEquals(313, part1(input))
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = readTestInput()
-        assertEquals(TODO(), part2(input))
+        assertEquals(3621, part2(input))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day19", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(10656, part2(input))
     }
 }
