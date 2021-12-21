@@ -1,29 +1,52 @@
 package day20
 
-import util.readInput
+import util.*
 import kotlin.test.*
 
-@Ignore
 internal class Day20KtTest {
 
-    private val sampleInput: String = TODO()
+    private val sampleInput: String =
+        "..#.#..#####.#.#.#.###.##.....###.##.#..###.####..#####..#....#..#..##..##" +
+                "#..######.###...####..#..#####..##..#.#####...##.#.#..#.##..#.#......#.###" +
+                ".######.###.####...#.##.##..#..#..#####.....#.#....###..#.##......#.....#." +
+                ".#..#..##..#...##.######.####.####.#.#...#.......#..#.#.#...####.##.#....." +
+                ".#..#...##.#.##..#...##.#.##..###.#......#.#.......#.#.#.####.###.##...#.." +
+                "...####.#..#..#.##.#....##..#.####....##...##..#...#......#.#.......#....." +
+                "..##..####..#...#.#.#...##..#.#..###..#####........#..####......#..#\n\n" +
+                """
+                    #..#.
+                    #....
+                    ##..#
+                    ..#..
+                    ..###""".trimIndent()
 
 
     @Test
     fun parseInput() {
-        assertEquals(TODO(), mapInput(sampleInput.lineSequence()))
+        val input = mapInput(sampleInput.lineSequence())
+        assertEquals(512, input.algorithm.length)
+        assertEquals('#', input.algorithm[34])
+        assertEquals(
+            Matrix(
+                "#..#.".map { it },
+                "#....".map { it },
+                "##..#".map { it },
+                "..#..".map { it },
+                "..###".map { it }),
+            input.image
+        )
     }
 
     @Test
     fun `part1 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part1(input))
+        assertEquals(35, part1(input))
     }
 
     @Test
     fun part1() {
         val input = readInput("day20", ::mapInput)
-        assertEquals(TODO(), part1(input))
+        assertEquals(4968, part1(input))
     }
 
     @Test
