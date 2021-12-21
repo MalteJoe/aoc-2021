@@ -3,33 +3,24 @@ package day21
 import util.readInput
 import kotlin.test.*
 
-@Ignore
 internal class Day21KtTest {
-
-    private val sampleInput: String = TODO()
-
-
-    @Test
-    fun parseInput() {
-        assertEquals(TODO(), mapInput(sampleInput.lineSequence()))
-    }
 
     @Test
     fun `part1 example`() {
-        val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part1(input))
+        val input = Pair(4, 8)
+        assertEquals(739785, part1(input))
     }
 
     @Test
     fun part1() {
         val input = readInput("day21", ::mapInput)
-        assertEquals(TODO(), part1(input))
+        assertEquals(1073709, part1(input))
     }
 
     @Test
     @Ignore
     fun `part2 example`() {
-        val input = mapInput(sampleInput.lineSequence())
+        val input = Pair(4, 8)
         assertEquals(TODO(), part2(input))
     }
 
