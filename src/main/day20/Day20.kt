@@ -15,8 +15,8 @@ fun mapInput(lines: Sequence<String>): Input {
     return Input(allLines[0], Matrix(allLines.subList(2, allLines.size).map { it.map { it } }))
 }
 
-fun part1(input: Input): Output {
-    val (image) = (0 until 2).fold(Pair(input.image, '.')) { (image, outside), _ ->
+fun part1(input: Input, steps: Int = 2): Output {
+    val (image) = (0 until steps).fold(Pair(input.image, '.')) { (image, outside), step ->
         val newImage = Matrix(image.rows.size + 2, image.cols.size + 2) { (row, col) ->
             val area = Matrix(3, 3) { (r, c) ->
                 val pixel = Pixel(r + row - 2, c + col - 2)
@@ -24,9 +24,10 @@ fun part1(input: Input): Output {
             }
             input.algorithm[area.flatten().map { if (it == '#') '1' else '0' }.joinToString("").toInt(2)]
         }
+        if ((step + 1).mod(10) == 0) println("After Step ${step + 1}:\n$newImage")
         Pair(newImage, if (outside == '#') input.algorithm.last() else input.algorithm[0])
     }
     return image.coordinates { it == '#' }.count()
 }
 
-fun part2(input: Input): Output = TODO()
+fun part2(input: Input): Output = part1(input, 50)
