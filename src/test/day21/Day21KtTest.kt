@@ -18,16 +18,14 @@ internal class Day21KtTest {
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = Pair(4, 8)
-        assertEquals(TODO(), part2(input))
+        assertEquals(444356092776315, part2(input))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day21", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(148747830493442, part2(input))
     }
 }
