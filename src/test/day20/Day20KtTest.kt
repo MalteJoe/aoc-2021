@@ -56,7 +56,6 @@ internal class Day20KtTest {
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day20", ::mapInput)
         assertEquals(16793, part2(input))

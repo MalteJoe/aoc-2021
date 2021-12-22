@@ -17,14 +17,13 @@ fun mapInput(lines: Sequence<String>): Input {
 
 fun part1(input: Input, steps: Int = 2): Output {
     val (image) = (0 until steps).fold(Pair(input.image, '.')) { (image, outside), step ->
-        val newImage = Matrix(image.rows.size + 2, image.cols.size + 2) { (row, col) ->
+        val newImage = Matrix(image.rows + 2, image.cols + 2) { (row, col) ->
             val area = Matrix(3, 3) { (r, c) ->
                 val pixel = Pixel(r + row - 2, c + col - 2)
                 if (pixel in image) image[pixel] else outside
             }
             input.algorithm[area.flatten().map { if (it == '#') '1' else '0' }.joinToString("").toInt(2)]
         }
-        if ((step + 1).mod(10) == 0) println("After Step ${step + 1}:\n$newImage")
         Pair(newImage, if (outside == '#') input.algorithm.last() else input.algorithm[0])
     }
     return image.coordinates { it == '#' }.count()

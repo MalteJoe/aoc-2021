@@ -34,7 +34,7 @@ fun Matrix<Int>.tick() {
 fun part2(input: Input): Output {
     val state = input.copy()
     var steps = 0
-    while (state.flatten().count { it == 0 } < input.rows.size * input.cols.size) {
+    while (state.flatten().count { it == 0 } < input.rows * input.cols) {
         state.tick()
         steps++
     }

@@ -7,26 +7,30 @@ import kotlin.math.abs
 class Matrix<T> {
     private val _values: MutableList<MutableList<T>>
     val values: List<List<T>> get() = _values
-    val rows: List<List<T>> get() = values
-    val cols: List<List<T>> get() = values[0].indices.map { i -> values.map { it[i] } }
+    val rows: Int
+    val cols: Int
 
     constructor(vararg values: List<T>) : this(values.toList())
 
     constructor(values: List<List<T>>) {
         assert(values.isNotEmpty())
-        assert(values.map(List<T>::size).distinct().size == 1)
+        rows = values.size
+        cols = values.first().size
+        assert(values.all { it.size == cols })
         this._values = MutableList(values.size) { i -> values[i].toMutableList() }
     }
 
     constructor(rows: Int, cols: Int, init: (Coordinate) -> T) {
         assert(rows > 0)
+        this.rows = rows
         assert(cols > 0)
+        this.cols = cols
         this._values = MutableList(rows) { row -> MutableList(cols) { col -> init(Coordinate(row, col)) } }
     }
 
     fun coordinates() = sequence {
-        for (row in rows.indices) {
-            for (col in cols.indices) {
+        for (row in 0 until rows) {
+            for (col in 0 until cols) {
                 yield(Coordinate(row, col))
             }
         }
@@ -53,7 +57,9 @@ class Matrix<T> {
 
     fun copy(): Matrix<T> = Matrix(_values)
 
-    operator fun contains(coord: Coordinate): Boolean = coord.col in cols.indices && coord.row in rows.indices
+    fun transposed(): Matrix<T> = Matrix(values[0].indices.map { i -> values.map { it[i] } })
+
+    operator fun contains(coord: Coordinate): Boolean = coord.col in 0 until cols && coord.row in 0 until rows
 
     operator fun get(c: Coordinate): T = _values[c.row][c.col]
 
@@ -91,21 +97,22 @@ class Matrix<T> {
 // Matrix<Int> calculations
 
 operator fun Matrix<Int>.plusAssign(matrix: Matrix<Int>) {
-    assert(cols.size == matrix.cols.size)
-    assert(rows.size == matrix.rows.size)
+    assert(cols == matrix.cols)
+    assert(rows == matrix.rows)
     coordinates().forEach { this[it] += matrix[it] }
 }
 
 operator fun Matrix<Int>.times(other: Matrix<Int>): Matrix<Int> {
-    assert(cols.size == other.rows.size)
-    return Matrix(rows.size, other.cols.size) { (row, col) ->
-        rows[row].zip(other.cols[col]).sumOf { it.first * it.second }
+    assert(cols == other.rows)
+    val otherT = other.transposed()
+    return Matrix(rows, other.cols) { (row, col) ->
+        values[row].zip(otherT.values[col]).sumOf { it.first * it.second }
     }
 }
 
 operator fun Matrix<Int>.times(vector: Vector<Int>): Vector<Int> {
-    assert(cols.size == vector.values.size)
-    return Vector(rows.map { vector.dotProduct(Vector(it)) })
+    assert(cols == vector.values.size)
+    return Vector(values.map { vector.dotProduct(Vector(it)) })
 }
 
 operator fun Matrix<Int>.plusAssign(toAdd: Int) = replaceAll { it + toAdd }

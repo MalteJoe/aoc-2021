@@ -136,7 +136,7 @@ fun part2(input: Input): Output = arrangeScanners(input).values
     .allCombinations()
     .maxOf { (it.first - it.second).manhattanLength() }
 
-private fun Vector<Int>.manhattanLength(): Int = values.slice(0..2).map(Int::absoluteValue).sum()
+private fun Vector<Int>.manhattanLength(): Int = values.slice(0 until 3).map(Int::absoluteValue).sum()
 
 inline fun <T> Sequence<T>.chunked(crossinline delimiter: (T) -> Boolean): Sequence<List<T>> {
     val underlyingSequence = this
