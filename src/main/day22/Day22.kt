@@ -21,15 +21,17 @@ fun mapInput(lines: Sequence<String>): Input {
     }.toList()
 }
 
-fun part1(input: Input): Output {
-    val part1Area = Cuboid(-50..50, -50..50, -50..50)
-    return normalizeSteps(input.filter { part1Area.intersect(it.cuboid) != null }).sumOf { it.cuboid.cubeCount * if (it.on) 1 else -1 }
+fun part1(input: Input, region: Cuboid? = Cuboid(-50..50, -50..50, -50..50)): Output {
+    val stepsToConsider = if (region == null) input else input.filter { region.intersect(it.cuboid) != null }
+    return normalizeSteps(stepsToConsider).sumOf { it.cuboid.cubeCount * if (it.on) 1 else -1 }
 }
+
+fun part2(input: Input): Output = part1(input, region = null)
 
 private fun normalizeSteps(input: Input): MutableList<Step> {
     val normalizedSteps = mutableListOf<Step>()
     for (step in input) {
-        // Insert steps to turn invert the intersection volumes
+        // Insert steps to invert the intersection volumes
         normalizedSteps += normalizedSteps.mapNotNull { previous ->
             previous.cuboid.intersect(step.cuboid)?.let { Step(!previous.on, it) }
         }
@@ -37,7 +39,6 @@ private fun normalizeSteps(input: Input): MutableList<Step> {
     }
     return normalizedSteps
 }
-
 
 internal fun Cuboid.intersect(cuboid: Cuboid): Cuboid? {
     if (!(x.overlaps(cuboid.x) && y.overlaps(cuboid.y) && z.overlaps(cuboid.z))) return null
@@ -48,8 +49,6 @@ internal fun Cuboid.intersect(cuboid: Cuboid): Cuboid? {
     )
 }
 
+private val Cuboid.cubeCount: Long get() = x.size.toLong() * y.size * z.size
 private fun IntRange.overlaps(other: IntRange): Boolean = first <= other.last && last >= other.first
 private val IntRange.size: Int get() = last - start + 1
-private val Cuboid.cubeCount: Long get() = x.size.toLong() * y.size * z.size
-
-fun part2(input: Input): Output = TODO()
