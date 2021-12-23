@@ -105,16 +105,14 @@ internal class Day23KtTest {
     }
 
     @Test
-    @Ignore
     fun `part2 example`() {
         val input = mapInput(sampleInput.lineSequence())
-        assertEquals(TODO(), part2(input))
+        assertEquals(44169, part2(input))
     }
 
     @Test
-    @Ignore
     fun part2() {
         val input = readInput("day23", ::mapInput)
-        assertEquals(TODO(), part2(input))
+        assertEquals(47484, part2(input))
     }
 }

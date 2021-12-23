@@ -11,18 +11,22 @@ fun main() = advent("day23", ::mapInput, ::part1, ::part2)
 typealias Input = List<String>
 typealias Output = Int
 
-data class State(val hallway: String, val rooms: Map<Char, String>)
+data class State(val hallway: String, val rooms: Map<Char, String>) {
+    val isTargetState: Boolean get() = rooms.all { (room, pos) -> pos.all { it == room } }
+}
 
 fun mapInput(lines: Sequence<String>): Input = lines.toList()
 
-val targetState: State = State(".".repeat(11), mapOf('A' to "AA", 'B' to "BB", 'C' to "CC", 'D' to "DD"))
+fun part1(input: Input): Output = dijkstra(input.toState())
 
-fun part1(input: Input): Output {
-    val start = input.toState()
+fun part2(input: Input): Output =
+    dijkstra((input.toMutableList().also { it.addAll(3, listOf("  #D#C#B#A#", "  #D#B#A#C#")) }).toState())
+
+private fun dijkstra(start: State): Int {
     val explored = mutableSetOf<State>()
     val toExplore = PriorityQueue<Pair<State, Int>>(compareBy { it.second })
     var next = Pair(start, 0)
-    while (next.first != targetState) {
+    while (!next.first.isTargetState) {
         if (explored.add(next.first)) {
             toExplore += possibleMoves(next.first).map { it.copy(second = it.second + next.second) }
         }
@@ -32,12 +36,10 @@ fun part1(input: Input): Output {
     return next.second
 }
 
-fun part2(input: Input): Output = TODO()
-
 internal fun List<String>.toState(): State {
     return State(get(1).substring(1 until 12), "ABCD".associateWith { room ->
         val col = room.hallwayIndex + 1
-        (2..3).map { get(it)[col] }.joinToString("")
+        (2..size - 2).map { get(it)[col] }.joinToString("")
     })
 }
 
@@ -85,8 +87,7 @@ internal fun possibleMoves(state: State): List<Pair<State, Int>> {
     return newStates
 }
 
-private fun String.withReplacement(index: Int, value: Char): String =
-    toCharArray().also { it[index] = value }.concatToString()
+private fun String.withReplacement(index: Int, value: Char) = toCharArray().also { it[index] = value }.concatToString()
 
 private val Char.isAmphipod: Boolean get() = this in "ABCD"
 private val Char.hallwayIndex: Int get() = (this - 'A') * 2 + 2
